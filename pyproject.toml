@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vector-memory"
+version = "0.1.0"
+description = "Long-term memory for LLM agents: stamped embeddings, add/update/merge dedup, rerank, threshold calibration."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Daniel Accatino" }]
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Framework :: AsyncIO",
+]
+
+[project.urls]
+Repository = "https://github.com/zerdastudio/vector-memory"
+
+[project.optional-dependencies]
+openai = ["openai>=1.40"]
+cohere = ["cohere>=5.0"]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

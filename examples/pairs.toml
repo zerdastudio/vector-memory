@@ -1,0 +1,25 @@
+# Pairs for `python -m vector_memory.calibrate`. Write your own from the kind of memories your agent keeps:
+# the thresholds you get are only as good as these pairs are typical.
+
+# The same fact with trivial edits: should be UPDATE.
+duplicates = [
+    ["The user prefers metric units in reports.", "The user prefers metric units in reports"],
+    ["Deploys are frozen on Fridays after 6 pm.", "Deploys are frozen on fridays after 6pm."],
+    ["The staging database is reset every Monday night.", "The staging database is reset every Monday night!"],
+]
+
+# The same fact in other words: should be MERGE (or UPDATE).
+paraphrases = [
+    ["The user prefers metric units in reports.", "Reports for this user should use kilometres and kilograms."],
+    ["Deploys are frozen on Fridays after 6 pm.", "No releases go out late on a Friday."],
+    ["The staging database is reset every Monday night.", "Every Monday evening the test database is wiped."],
+    ["The client pays invoices within 30 days.", "Invoices from us are settled by this customer in about a month."],
+]
+
+# Different facts: should be ADD.
+unrelated = [
+    ["The user prefers metric units in reports.", "Deploys are frozen on Fridays after 6 pm."],
+    ["The staging database is reset every Monday night.", "The client pays invoices within 30 days."],
+    ["The user prefers metric units in reports.", "The office coffee machine is on the second floor."],
+    ["No releases go out late on a Friday.", "Every Monday evening the test database is wiped."],
+]

@@ -190,7 +190,10 @@ and 3 when the embedding calls failed.
   a thread, and a thread cannot be stopped halfway. The caller sees the cancellation; the memory is there.
 - The test suite runs offline: in CI the OpenAI and Cohere clients run against stand-in clients. The live
   check is `tests/test_live.py`, skipped without keys: on 14 November 2026 it passed against the OpenAI
-  embeddings API (`text-embedding-3-large`, native and 256 dimensions) and Cohere rerank (`rerank-v3.5`).
+  embeddings API (`text-embedding-3-large`), Gemini embeddings through Gemini's OpenAI-compatible endpoint
+  (`gemini-embedding-2`), both native and at 256 dimensions, and Cohere rerank (`rerank-v3.5`). The Gemini run
+  found that its endpoint leaves some of the order indexes of a batch empty; 2.0.1 keeps the reply's order then,
+  and the check that this order is the order of the texts ran on Gemini.
 
 ## License
 

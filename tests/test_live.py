@@ -48,6 +48,20 @@ def test_a_real_model_puts_a_paraphrase_closer_than_an_unrelated_fact():
     assert distance(vectors[0], vectors[1]) < distance(vectors[0], vectors[2])
 
 
+def test_a_batch_comes_back_in_the_order_of_its_texts():
+    # some endpoints leave `index` empty in a batch, and then the reply's order is all there is: check it
+    key, model = need("OPENAI_API_KEY", "LIVE_EMBED_MODEL")
+    texts = [FACT, PARAPHRASE, UNRELATED]
+    e = embedder(key, model)
+
+    async def go():   # one event loop: the client's pooled connections belong to it
+        return (await e.embed(texts, "document"), [(await e.embed([t], "document"))[0] for t in texts])
+    batch, alone = asyncio.run(go())
+    for i, vector in enumerate(batch):
+        assert min(range(3), key=lambda j: distance(vector, alone[j])) == i
+        assert distance(vector, alone[i]) < 0.01
+
+
 def test_shortened_dimensions_come_back_with_their_own_stamp():
     key, model = need("OPENAI_API_KEY", "LIVE_EMBED_MODEL")
     e = embedder(key, model, dimensions=256)

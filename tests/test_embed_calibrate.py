@@ -80,6 +80,16 @@ def test_openai_embedder_with_a_stand_in_client():
     assert "dimensions" not in seen and plain.model_id == "m@native"
 
 
+@pytest.mark.parametrize("indexes", [[None, None, None], [0, None, 2], [0, 0, 1], [1, 1, 0]])
+def test_an_endpoint_without_usable_indexes_keeps_the_reply_order(indexes):
+    # Gemini's OpenAI-compatible endpoint answers a batch with `index` left empty (found by tests/test_live.py)
+    async def create(**kw):
+        return NS(data=[NS(index=i, embedding=[float(n), 1.0]) for n, i in enumerate(indexes)])
+
+    e = OpenAIEmbedder("m", client=NS(embeddings=NS(create=create)))
+    assert run(e.embed(["a", "b", "c"], "document")) == [[0.0, 1.0], [1.0, 1.0], [2.0, 1.0]]
+
+
 def test_cohere_reranker_with_a_stand_in_client():
     async def rerank(**kw):
         assert kw["top_n"] == 3

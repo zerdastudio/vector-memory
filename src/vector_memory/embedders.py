@@ -46,7 +46,11 @@ class OpenAIEmbedder:
     async def embed(self, texts: list[str], kind: str) -> list[list[float]]:
         extra = {"dimensions": self.dimensions} if self.dimensions else {}
         reply = await self._client.embeddings.create(model=self.model, input=texts, **extra)
-        data = sorted(reply.data, key=lambda d: d.index)
+        data = list(reply.data)
+        indexes = [getattr(d, "index", None) for d in data]
+        if sorted(i for i in indexes if isinstance(i, int)) == list(range(len(data))):
+            data.sort(key=lambda d: d.index)
+        # otherwise keep the reply's order: some compatible endpoints (Gemini's) leave `index` empty
         return [list(d.embedding) for d in data]
 
 

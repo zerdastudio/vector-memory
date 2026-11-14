@@ -16,7 +16,8 @@ SQLite and numpy. Any embedding model, with a fallback chain; OpenAI-compatible 
 optional SDKs.
 
 **Where it comes from.** This is the memory layer of a multi-agent system I built, where it ran against live
-embedding and rerank providers, rewritten here as a standalone library with its own test suite.
+embedding and rerank providers, rewritten here as a standalone library with its own test suite. Earlier
+versions lived inside that system and were never published; this standalone rewrite starts at 2.0.
 
 ## When to use it
 
@@ -187,7 +188,9 @@ and 3 when the embedding calls failed.
   A `reembed` that fails halfway leaves two spaces; run it again.
 - A `remember` cancelled while its database write is running still completes that write: SQLite work runs on
   a thread, and a thread cannot be stopped halfway. The caller sees the cancellation; the memory is there.
-- The test suite runs offline: in CI the OpenAI and Cohere clients run against stand-in clients.
+- The test suite runs offline: in CI the OpenAI and Cohere clients run against stand-in clients. The live
+  check is `tests/test_live.py`, skipped without keys: on 14 November 2026 it passed against the OpenAI
+  embeddings API (`text-embedding-3-large`, native and 256 dimensions) and Cohere rerank (`rerank-v3.5`).
 
 ## License
 

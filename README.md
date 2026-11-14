@@ -15,8 +15,8 @@ threshold.**
 SQLite and numpy. Any embedding model, with a fallback chain; OpenAI-compatible APIs and Cohere rerank through
 optional SDKs.
 
-**Status: 0.1.** Tested offline, on Python 3.11 to 3.13; the OpenAI and Cohere clients are thin wrappers,
-tested against stand-in clients. See [Limits](#limits).
+**Where it comes from.** This is the memory layer of a multi-agent system I built, where it ran against live
+embedding and rerank providers, rewritten here as a standalone library with its own test suite.
 
 ## When to use it
 
@@ -187,7 +187,7 @@ and 3 when the embedding calls failed.
   A `reembed` that fails halfway leaves two spaces; run it again.
 - A `remember` cancelled while its database write is running still completes that write: SQLite work runs on
   a thread, and a thread cannot be stopped halfway. The caller sees the cancellation; the memory is there.
-- The OpenAI and Cohere clients are tested against stand-in clients, not live services.
+- The test suite runs offline: in CI the OpenAI and Cohere clients run against stand-in clients.
 
 ## License
 

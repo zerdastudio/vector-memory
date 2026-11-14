@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vector-memory"
-version = "0.1.0"
+version = "1.0.0"
 description = "Long-term memory for LLM agents: stamped embeddings, add/update/merge dedup, rerank, threshold calibration."
 readme = "README.md"
 license = { text = "MIT" }

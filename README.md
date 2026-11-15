@@ -56,7 +56,7 @@ is merged, and the old text goes to the history. When the main embedding provide
 its vectors live in another space, so the store refuses to compare them with the old ones, says so, and shows
 the damage (a duplicate that dedup could not see) until you re-embed.
 
-And the demo's first step calibrates the toy embedder on [`examples/pairs.toml`](examples/pairs.toml), and fails
+And the demo's first step calibrates the toy embedder on [`examples/pairs.toml`](https://github.com/zerdastudio/vector-memory/blob/main/examples/pairs.toml), and fails
 it on purpose:
 
 ```text
@@ -204,11 +204,13 @@ and 3 when the embedding calls failed.
 
 ## Part of a larger system
 
-This library is one piece of a multi-agent system I built, rewritten to stand on its own. The other pieces
+This library is one piece of a multi-agent system I built, rewritten to stand on its own. The other piece
 published so far:
 
 - [llm-router](https://github.com/zerdastudio/llm-router): fallback chains, a spending cap per role reserved before each call, and a ledger of every attempt.
-- [ai-csv-batch](https://github.com/zerdastudio/ai-csv-batch): every row of a CSV through Claude, GPT or Gemini, with retries, resume and a cost log.
+
+Also by me, not part of the system: [ai-csv-batch](https://github.com/zerdastudio/ai-csv-batch), every row of a CSV
+through Claude, GPT or Gemini, with retries, resume and a cost log.
 
 More about the system on my [GitHub profile](https://github.com/zerdastudio).
 

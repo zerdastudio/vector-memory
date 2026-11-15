@@ -1,5 +1,8 @@
 name: publish
 
+permissions:
+  contents: read
+
 # A GitHub release publishes the package to PyPI through trusted publishing: no API token is stored anywhere.
 on:
   release:

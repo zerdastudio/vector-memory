@@ -71,11 +71,18 @@ your real model.
 ## Quick start
 
 ```bash
+pip install vector-memory                    # SQLite and numpy
+pip install "vector-memory[openai,cohere]"   # with the embedding and rerank SDKs
+```
+
+The import name is `vector_memory`. To run the tests and the demo, work from a clone:
+
+```bash
 git clone https://github.com/zerdastudio/vector-memory
 cd vector-memory
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-pytest                    # 76 tests, offline
+pytest                    # 80 tests, offline (the live ones are skipped without keys)
 python examples/demo.py   # the tour above
 ```
 
@@ -194,6 +201,16 @@ and 3 when the embedding calls failed.
   (`gemini-embedding-2`), both native and at 256 dimensions, and Cohere rerank (`rerank-v3.5`). The Gemini run
   found that its endpoint leaves some of the order indexes of a batch empty; 2.0.1 keeps the reply's order then,
   and the check that this order is the order of the texts ran on Gemini.
+
+## Part of a larger system
+
+This library is one piece of a multi-agent system I built, rewritten to stand on its own. The other pieces
+published so far:
+
+- [llm-router](https://github.com/zerdastudio/llm-router): fallback chains, a spending cap per role reserved before each call, and a ledger of every attempt.
+- [ai-csv-batch](https://github.com/zerdastudio/ai-csv-batch): every row of a CSV through Claude, GPT or Gemini, with retries, resume and a cost log.
+
+More about the system on my [GitHub profile](https://github.com/zerdastudio).
 
 ## License
 

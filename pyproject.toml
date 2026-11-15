@@ -18,7 +18,9 @@ classifiers = [
 ]
 
 [project.urls]
+Homepage = "https://github.com/zerdastudio"
 Repository = "https://github.com/zerdastudio/vector-memory"
+Changelog = "https://github.com/zerdastudio/vector-memory/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 openai = ["openai>=1.40"]
